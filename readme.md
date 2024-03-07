@@ -26,7 +26,7 @@ This is just a fork (and a fork of forks), we are not the authors of this creati
 - Metadata
 - Special theme
 - Optimize parameters
-- Default model is JuggernautXL V9
+- Default model is FluentlyXL v2
 
 
 ---
