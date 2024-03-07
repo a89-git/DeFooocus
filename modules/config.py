@@ -10,8 +10,16 @@ from modules.model_loader import load_file_from_url
 from modules.util import get_files_from_folder
 from modules.flags import Performance, MetadataScheme, lora_count
 
-config_path = os.path.abspath("./config.txt")
-config_example_path = os.path.abspath("config_modification_tutorial.txt")
+def get_config_path(key, default_value):
+    env = os.getenv(key)
+    if env is not None and isinstance(env, str):
+        print(f"Environment: {key} = {env}")
+        return env
+    else:
+        return os.path.abspath(default_value)
+
+config_path = get_config_path('config_path', "./config.txt")
+config_example_path = get_config_path('config_example_path', "config_modification_tutorial.txt")
 config_dict = {}
 always_save_keys = []
 visited_keys = []
@@ -158,7 +166,14 @@ def get_dir_or_set_default(key, default_value, make_directory=False):
     if key not in always_save_keys:
         always_save_keys.append(key)
 
-    v = config_dict.get(key, None)
+    v = os.getenv(key)
+    if v is not None:
+        print(f"Environment: {key} = {v}")
+        config_dict[key] = v
+    else:
+        v = config_dict.get(key, None)
+
+    
     if isinstance(v, str):
         if make_directory:
             try:
@@ -194,6 +209,11 @@ def get_config_item_or_set_default(key, default_value, validator, disable_empty_
 
     if key not in visited_keys:
         visited_keys.append(key)
+
+    v = os.getenv(key)
+    if v is not None:
+        print(f"Environment: {key} = {v}")
+        config_dict[key] = v
     
     if key not in config_dict:
         config_dict[key] = default_value
