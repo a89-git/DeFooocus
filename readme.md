@@ -263,6 +263,11 @@ You can install DeFooocus on Apple Mac silicon (M1 or M2) with macOS 'Catalina' 
 1. Install the packages required by Fooocus, `pip install -r requirements_versions.txt`.
 1. Launch Fooocus by running `python entry_with_update.py`. (Some Mac M2 users may need `python entry_with_update.py --disable-offload-from-vram` to speed up model loading/unloading.) The first time you run DeFooocus, it will automatically download the Stable Diffusion SDXL models and will take a significant amount of time, depending on your internet connection.
 
+### Docker
+
+See [docker.md](docker.md)
+
+
 
 
 ## Minimal Requirement
