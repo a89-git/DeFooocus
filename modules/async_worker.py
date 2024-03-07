@@ -1,7 +1,9 @@
 import threading
+import os
 from modules.patch import PatchSettings, patch_settings, patch_all
 
 patch_all()
+
 
 class AsyncTask:
     def __init__(self, args):
@@ -22,12 +24,12 @@ def worker():
     import traceback
     import math
     import numpy as np
-    import cv2
     import torch
     import time
     import shared
     import random
     import copy
+    import cv2
     import modules.default_pipeline as pipeline
     import modules.core as core
     import modules.flags as flags
@@ -42,13 +44,15 @@ def worker():
     import fooocus_version
     import args_manager
 
-    from modules.sdxl_styles import apply_style, apply_wildcards, fooocus_expansion, apply_arrays
+    from modules.censor import censor_batch
+
+    from modules.sdxl_styles import apply_style, apply_wildcards, fooocus_expansion
     from modules.private_logger import log
     from extras.expansion import safe_str
     from modules.util import remove_empty_str, HWC3, resize_image, \
-        get_image_shape_ceil, set_image_shape_ceil, get_shape_ceil, resample_image, erode_or_dilate, ordinal_suffix
+        get_image_shape_ceil, set_image_shape_ceil, get_shape_ceil, resample_image, erode_or_dilate
     from modules.upscaler import perform_upscale
-    from modules.flags import Performance
+    from modules.flags import Performance, lora_count
     from modules.meta_parser import get_metadata_parser, MetadataScheme
 
     pid = os.getpid()
@@ -67,9 +71,16 @@ def worker():
         print(f'[Fooocus] {text}')
         async_task.yields.append(['preview', (number, text, None)])
 
-    def yield_result(async_task, imgs, do_not_show_finished_images=False):
+    def yield_result(async_task, imgs, black_out_nsfw, do_not_show_finished_images=False, progressbar_index=13):
         if not isinstance(imgs, list):
             imgs = [imgs]
+
+        if modules.config.default_black_out_nsfw or black_out_nsfw:
+            progressbar(async_task, progressbar_index, 'Checking for NSFW content ...')
+            imgs_censor = [cv2.imread(img) for img in imgs]
+            imgs_censor = censor_batch(imgs_censor)
+            for i, img in enumerate(imgs):
+                cv2.imwrite(img, imgs_censor[i])
 
         async_task.results = async_task.results + imgs
 
@@ -80,20 +91,16 @@ def worker():
         return
 
     def build_image_wall(async_task):
-        results = []
+        results = async_task.results
 
-        if len(async_task.results) < 2:
+        if len(results) < 2:
             return
 
-        for img in async_task.results:
-            if isinstance(img, str) and os.path.exists(img):
-                img = cv2.imread(img)
-                img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        for img in results:
             if not isinstance(img, np.ndarray):
                 return
             if img.ndim != 3:
                 return
-            results.append(img)
 
         H, W, C = results[0].shape
 
@@ -123,14 +130,6 @@ def worker():
         async_task.results = async_task.results + [wall]
         return
 
-    def apply_enabled_loras(loras):
-        enabled_loras = []
-        for lora_enabled, lora_model, lora_weight in loras:
-            if lora_enabled:
-                enabled_loras.append([lora_model, lora_weight])
-
-        return enabled_loras
-
     @torch.no_grad()
     @torch.inference_mode()
     def handler(async_task):
@@ -142,6 +141,7 @@ def worker():
 
         prompt = args.pop()
         negative_prompt = args.pop()
+        translate_prompts = args.pop()
         style_selections = args.pop()
         performance_selection = Performance(args.pop())
         aspect_ratios_selection = args.pop()
@@ -153,7 +153,7 @@ def worker():
         base_model_name = args.pop()
         refiner_model_name = args.pop()
         refiner_switch = args.pop()
-        loras = apply_enabled_loras([[bool(args.pop()), str(args.pop()), float(args.pop()), ] for _ in range(modules.config.default_max_lora_number)])
+        loras = [[str(args.pop()), float(args.pop())] for _ in range(lora_count)]
         input_image_checkbox = args.pop()
         current_tab = args.pop()
         uov_method = args.pop()
@@ -165,7 +165,7 @@ def worker():
 
         disable_preview = args.pop()
         disable_intermediate_results = args.pop()
-        disable_seed_increment = args.pop()
+        black_out_nsfw = args.pop()
         adm_scaler_positive = args.pop()
         adm_scaler_negative = args.pop()
         adm_scaler_end = args.pop()
@@ -249,6 +249,11 @@ def worker():
             adm_scaler_positive = 1.0
             adm_scaler_negative = 1.0
             adm_scaler_end = 0.0
+
+        if translate_prompts:
+            from modules.translator import translate2en
+            prompt = translate2en(prompt, 'prompt')
+            negative_prompt = translate2en(negative_prompt, 'negative prompt')
 
         print(f'[Parameters] Adaptive CFG = {adaptive_cfg}')
         print(f'[Parameters] Sharpness = {sharpness}')
@@ -421,14 +426,10 @@ def worker():
             tasks = []
             
             for i in range(image_number):
-                if disable_seed_increment:
-                    task_seed = seed
-                else:
-                    task_seed = (seed + i) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
-
+                task_seed = (seed + i) % (constants.MAX_SEED + 1)  # randint is inclusive, % is not
                 task_rng = random.Random(task_seed)  # may bind to inpaint noise in the future
+
                 task_prompt = apply_wildcards(prompt, task_rng)
-                task_prompt = apply_arrays(task_prompt, i)
                 task_negative_prompt = apply_wildcards(negative_prompt, task_rng)
                 task_extra_positive_prompts = [apply_wildcards(pmt, task_rng) for pmt in extra_positive_prompts]
                 task_extra_negative_prompts = [apply_wildcards(pmt, task_rng) for pmt in extra_negative_prompts]
@@ -558,9 +559,9 @@ def worker():
                 direct_return = False
 
             if direct_return:
-                d = [('Upscale (Fast)', 'upscale_fast', '2x')]
+                d = [('Upscale (Fast)', '2x')]
                 uov_input_image_path = log(uov_input_image, d, output_format=output_format)
-                yield_result(async_task, uov_input_image_path, do_not_show_finished_images=True)
+                yield_result(async_task, uov_input_image_path, black_out_nsfw, do_not_show_finished_images=True)
                 return
 
             tiled = True
@@ -624,7 +625,7 @@ def worker():
             )
 
             if debugging_inpaint_preprocessor:
-                yield_result(async_task, inpaint_worker.current_task.visualize_mask_processing(),
+                yield_result(async_task, inpaint_worker.current_task.visualize_mask_processing(), black_out_nsfw,
                              do_not_show_finished_images=True)
                 return
 
@@ -688,7 +689,7 @@ def worker():
                 cn_img = HWC3(cn_img)
                 task[0] = core.numpy_to_pytorch(cn_img)
                 if debugging_cn_preprocessor:
-                    yield_result(async_task, cn_img, do_not_show_finished_images=True)
+                    yield_result(async_task, cn_img, black_out_nsfw, do_not_show_finished_images=True)
                     return
             for task in cn_tasks[flags.cn_cpds]:
                 cn_img, cn_stop, cn_weight = task
@@ -700,7 +701,7 @@ def worker():
                 cn_img = HWC3(cn_img)
                 task[0] = core.numpy_to_pytorch(cn_img)
                 if debugging_cn_preprocessor:
-                    yield_result(async_task, cn_img, do_not_show_finished_images=True)
+                    yield_result(async_task, cn_img, black_out_nsfw, do_not_show_finished_images=True)
                     return
             for task in cn_tasks[flags.cn_ip]:
                 cn_img, cn_stop, cn_weight = task
@@ -711,7 +712,7 @@ def worker():
 
                 task[0] = ip_adapter.preprocess(cn_img, ip_adapter_path=ip_adapter_path)
                 if debugging_cn_preprocessor:
-                    yield_result(async_task, cn_img, do_not_show_finished_images=True)
+                    yield_result(async_task, cn_img, black_out_nsfw, do_not_show_finished_images=True)
                     return
             for task in cn_tasks[flags.cn_ip_face]:
                 cn_img, cn_stop, cn_weight = task
@@ -725,7 +726,7 @@ def worker():
 
                 task[0] = ip_adapter.preprocess(cn_img, ip_adapter_path=ip_adapter_face_path)
                 if debugging_cn_preprocessor:
-                    yield_result(async_task, cn_img, do_not_show_finished_images=True)
+                    yield_result(async_task, cn_img, black_out_nsfw, do_not_show_finished_images=True)
                     return
 
             all_ip_tasks = cn_tasks[flags.cn_ip] + cn_tasks[flags.cn_ip_face]
@@ -780,7 +781,7 @@ def worker():
             done_steps = current_task_id * steps + step
             async_task.yields.append(['preview', (
                 int(15.0 + 85.0 * float(done_steps) / float(all_steps)),
-                f'Step {step}/{total_steps} in the {current_task_id + 1}{ordinal_suffix(current_task_id + 1)} Sampling', y)])
+                f'Sampling Image {current_task_id + 1}/{image_number}, Step {step + 1}/{total_steps} ...', y)])
 
         for current_task_id, task in enumerate(tasks):
             execution_start_time = time.perf_counter()
@@ -825,26 +826,24 @@ def worker():
                     imgs = [inpaint_worker.current_task.post_process(x) for x in imgs]
 
                 img_paths = []
+
                 for x in imgs:
                     d = [('Prompt', 'prompt', task['log_positive_prompt']),
                          ('Negative Prompt', 'negative_prompt', task['log_negative_prompt']),
                          ('Fooocus V2 Expansion', 'prompt_expansion', task['expansion']),
                          ('Styles', 'styles', str(raw_style_selections)),
-                         ('Performance', 'performance', performance_selection.value)]
-
-                    if performance_selection.steps() != steps:
-                        d.append(('Steps', 'steps', steps))
-
-                    d += [('Resolution', 'resolution', str((width, height))),
-                          ('Guidance Scale', 'guidance_scale', guidance_scale),
-                          ('Sharpness', 'sharpness', sharpness),
-                          ('ADM Guidance', 'adm_guidance', str((
-                              modules.patch.patch_settings[pid].positive_adm_scale,
-                              modules.patch.patch_settings[pid].negative_adm_scale,
-                              modules.patch.patch_settings[pid].adm_scaler_end))),
-                          ('Base Model', 'base_model', base_model_name),
-                          ('Refiner Model', 'refiner_model', refiner_model_name),
-                          ('Refiner Switch', 'refiner_switch', refiner_switch)]
+                         ('Performance', 'performance', performance_selection.value),
+                         ('Steps', 'steps', steps),
+                         ('Resolution', 'resolution', str((width, height))),
+                         ('Guidance Scale', 'guidance_scale', guidance_scale),
+                         ('Sharpness', 'sharpness', modules.patch.patch_settings[pid].sharpness),
+                         ('ADM Guidance', 'adm_guidance', str((
+                             modules.patch.patch_settings[pid].positive_adm_scale,
+                             modules.patch.patch_settings[pid].negative_adm_scale,
+                             modules.patch.patch_settings[pid].adm_scaler_end))),
+                         ('Base Model', 'base_model', base_model_name),
+                         ('Refiner Model', 'refiner_model', refiner_model_name),
+                         ('Refiner Switch', 'refiner_switch', refiner_switch)]
 
                     if refiner_model_name != 'None':
                         if overwrite_switch > 0:
@@ -861,21 +860,23 @@ def worker():
                     if freeu_enabled:
                         d.append(('FreeU', 'freeu', str((freeu_b1, freeu_b2, freeu_s1, freeu_s2))))
 
-                    for li, (n, w) in enumerate(loras):
-                        if n != 'None':
-                            d.append((f'LoRA {li + 1}', f'lora_combined_{li + 1}', f'{n} : {w}'))
-
                     metadata_parser = None
                     if save_metadata_to_images:
                         metadata_parser = modules.meta_parser.get_metadata_parser(metadata_scheme)
                         metadata_parser.set_data(task['log_positive_prompt'], task['positive'],
                                                  task['log_negative_prompt'], task['negative'],
                                                  steps, base_model_name, refiner_model_name, loras)
-                    d.append(('Metadata Scheme', 'metadata_scheme', metadata_scheme.value if save_metadata_to_images else save_metadata_to_images))
+
+                    for li, (n, w) in enumerate(loras):
+                        if n != 'None':
+                            d.append((f'LoRA {li + 1}', f'lora_combined_{li + 1}', f'{n} : {w}'))
+
                     d.append(('Version', 'version', 'Fooocus v' + fooocus_version.version))
                     img_paths.append(log(x, d, metadata_parser, output_format))
 
-                yield_result(async_task, img_paths, do_not_show_finished_images=len(tasks) == 1 or disable_intermediate_results)
+                yield_result(async_task, img_paths, black_out_nsfw, do_not_show_finished_images=len(tasks) == 1
+                             or disable_intermediate_results or sampler_name == 'lcm',
+                             progressbar_index=int(15.0 + 85.0 * float((current_task_id + 1) * steps) / float(all_steps)))
             except ldm_patched.modules.model_management.InterruptProcessingException as e:
                 if async_task.last_stop == 'skip':
                     print('User skipped')

@@ -11,7 +11,6 @@ from extras.expansion import FooocusExpansion
 
 from ldm_patched.modules.model_base import SDXL, SDXLRefiner
 from modules.sample_hijack import clip_separate
-from modules.util import get_file_from_folder_list
 
 
 model_base = core.StableDiffusionModel()
@@ -61,7 +60,7 @@ def assert_model_integrity():
 def refresh_base_model(name):
     global model_base
 
-    filename = get_file_from_folder_list(name, modules.config.paths_checkpoints)
+    filename = os.path.abspath(os.path.realpath(os.path.join(modules.config.path_checkpoints, name)))
 
     if model_base.filename == filename:
         return
@@ -77,7 +76,7 @@ def refresh_base_model(name):
 def refresh_refiner_model(name):
     global model_refiner
 
-    filename = get_file_from_folder_list(name, modules.config.paths_checkpoints)
+    filename = os.path.abspath(os.path.realpath(os.path.join(modules.config.path_checkpoints, name)))
 
     if model_refiner.filename == filename:
         return
