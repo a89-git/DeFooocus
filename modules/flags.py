@@ -105,14 +105,14 @@ controlnet_image_count = 4
 
 
 class Steps(IntEnum):
-    QUALITY = 60
-    SPEED = 30
+    QUALITY = 30
+    SPEED = 8
     EXTREME_SPEED = 8
 
 
 class StepsUOV(IntEnum):
-    QUALITY = 36
-    SPEED = 18
+    QUALITY = 30
+    SPEED = 8
     EXTREME_SPEED = 8
 
 
