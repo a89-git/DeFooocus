@@ -100,7 +100,7 @@ def generate_clicked(task):
 
 reload_javascript()
 
-title = f'DeFooocus {fooocus_version.version}'
+title = f'Rakib_Ui {fooocus_version.version}'
 
 if isinstance(args_manager.args.preset, str):
     title += ' ' + args_manager.args.preset
