@@ -1,5 +1,5 @@
 {
-    "default_model": "srdreamtimeslightningv4.safetensors",
+    "default_model": "srdreamtimeslightningv5.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -37,14 +37,14 @@
     "default_aspect_ratio": "1216*832",
     "default_overwrite_step": -1,
     "checkpoint_downloads": {
-        "srdreamtimeslightningv4.safetensors": "https://huggingface.co/rafiislam/RakibUniverse/resolve/main/srdreamtimeslightningv4.safetensors"
+        "srdreamtimeslightningv5.safetensors": "https://huggingface.co/rafiislam/srdreamtimeslightning/resolve/main/srdreamtimeslightningv5.safetensors"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
         "mymj.safetensors": "https://huggingface.co/rafiislam/RakibUniverse/resolve/main/mymj.safetensors"
     },
     "previous_default_models": [
-        "srdreamtimeslightningv4.safetensors",
+        "srdreamtimeslightningv5.safetensors",
         "juggernautXL_version7Rundiffusion.safetensors",
         "juggernautXL_v7Rundiffusion.safetensors",
         "juggernautXL_version6Rundiffusion.safetensors",
