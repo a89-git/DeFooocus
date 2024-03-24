@@ -1,5 +1,5 @@
 {
-    "default_model": "FluentlyXL-v2.safetensors",
+    "default_model": "FluentlyXL-v3.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -39,7 +39,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": -1,
     "checkpoint_downloads": {
-        "FluentlyXL-v2.safetensors": "https://huggingface.co/fluently/Fluently-XL-v2/resolve/main/FluentlyXL-v2.safetensors"
+        "FluentlyXL-v2.safetensors": "https://huggingface.co/fluently/Fluently-XL-v3/resolve/main/FluentlyXL-v3.safetensors"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
