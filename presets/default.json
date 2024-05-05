@@ -28,9 +28,9 @@
     "default_sample_sharpness": 12.0,
     "default_sampler": "dpmpp_sde_gpu",
     "default_scheduler": "karras",
-    "default_performance": "Speed",
-    "default_prompt": "",
-    "default_prompt_negative": "",
+    "default_performance": "Quality",
+    "default_prompt": "high resolution,highest detailed:1.2, sharp focus:1.2, realistic:1.3, ultra high resolution textures:1.2.",
+    "default_prompt_negative": "unrealistic, saturated, high contrast, big nose, painting, drawing, sketch, cartoon, anime, manga, render, CG, 3d, watermark, signature, label, poorly drawn face, poorly drawn fingers, poorly drawn skin, poorly drawn nail,poorly drawn fingers,ugly, duplicate face, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, out of frame, ugly, extra limbs, (bad anatomy), gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, mutated hands, fused fingers, too many fingers, long neck, cloned fingers",
     "default_styles": [
     ],
     "default_aspect_ratio": "1152*896",
