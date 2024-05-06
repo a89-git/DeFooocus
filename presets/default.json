@@ -1,5 +1,5 @@
 {
-    "default_model": "Newreality.safetensors",
+    "default_model": "Boltning.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 10,
     "checkpoint_downloads": {
-        "Newreality.safetensors": "https://huggingface.co/muciz/iseng/resolve/main/NewrealityXL40.safetensors?download=true"
+        "Boltning.safetensors": "https://civitai.com/api/download/models/488645?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
