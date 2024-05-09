@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 30,
     "checkpoint_downloads": {
-        "ICBIN.safetensors": "https://civitai.com/api/download/models/480733?token=d08221c8d3ea123f5a1c047a82786f91"
+        "ICBIN.safetensors": "https://civitai.com/api/download/models/494552?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
