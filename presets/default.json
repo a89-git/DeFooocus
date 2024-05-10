@@ -1,5 +1,5 @@
 {
-    "default_model": "Cyberrealistic.4.0.safetensors",
+    "default_model": "Chinook.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 30,
     "checkpoint_downloads": {
-        "Cyberrealistic.4.0.safetensors": "https://huggingface.co/sam749/CyberRealistic-v4-2/resolve/main/cyberrealistic_v42.safetensors?download=true"
+        "Chinook.safetensors": "https://civitai.com/api/download/models/495482?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
