@@ -1,5 +1,5 @@
 {
-    "default_model": "NewRealityLiting.safetensors",
+    "default_model": "Platypus.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 30,
     "checkpoint_downloads": {
-        "NewRealityLiting.safetensors": "https://civitai.com/api/download/models/498484?token=d08221c8d3ea123f5a1c047a82786f91"
+        "Platypus.safetensors": "https://civitai.com/api/download/models/404401?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
