@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 30,
     "checkpoint_downloads": {
-        "samaritan_CGI.safetensors": "https://civitai.com/api/download/models/142456?token=d08221c8d3ea123f5a1c047a82786f91"
+        "samaritan_CGI.safetensors": "https://huggingface.co/muciz/iseng/resolve/main/samaritanCGI_v10.safetensors?download=true"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
