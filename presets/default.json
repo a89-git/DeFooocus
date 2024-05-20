@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 30,
     "checkpoint_downloads": {
-        "Araminta_EXP.safetensors": "https://huggingface.co/muciz/iseng/resolve/main/theAraminta.safetensors?download=true"
+        "Araminta_EXP.safetensors": "https://huggingface.co/muciz/iseng/resolve/main/theAraminta_b.safetensors?download=true"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
