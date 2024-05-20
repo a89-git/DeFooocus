@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 30,
     "checkpoint_downloads": {
-        "Araminta_EXP.safetensors": "https://civitai.com/api/download/models/515433?token=d08221c8d3ea123f5a1c047a82786f91"
+        "Araminta_EXP.safetensors": "https://huggingface.co/muciz/iseng/resolve/main/theAraminta.safetensors?download=true"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
