@@ -1,5 +1,5 @@
 {
-    "default_model": "Midgard_THL.safetensors",
+    "default_model": "Project_Unreal_Engine_5.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 30,
     "checkpoint_downloads": {
-        "Midgard_THL.safetensors": "https://civitai.com/api/download/models/516581?token=d08221c8d3ea123f5a1c047a82786f91"
+        "Project_Unreal_Engine_5.safetensors": "https://civitai.com/api/download/models/515404?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
