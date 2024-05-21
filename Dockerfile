@@ -12,7 +12,7 @@ RUN apt-get update -y && \
 WORKDIR /content
 USER user
 
-RUN git clone https://github.com/MoonRide303/Fooocus-MRE /content/test && \
+RUN git clone https://github.com/a89-git/DeFooocus /content/test && \
     cd /content/test && \
     cp settings-no-refiner.json settings.json && \
     git reset --hard
