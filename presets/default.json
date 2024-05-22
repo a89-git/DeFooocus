@@ -1,5 +1,5 @@
 {
-    "default_model": "Araminta_EXP_C.safetensors",
+    "default_model": "WildcardFantasy.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 25,
     "checkpoint_downloads": {
-        "Araminta_EXP_C.safetensors": "https://civitai.com/api/download/models/521566?token=d08221c8d3ea123f5a1c047a82786f91"
+        "WildcardFantasy.safetensors": "https://civitai.com/api/download/models/522165?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
