@@ -1,5 +1,5 @@
 {
-    "default_model": "ColorfulXL.4.safetensors",
+    "default_model": "AramintaEXP.Cv3.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -34,9 +34,9 @@
     "default_styles": [
     ],
     "default_aspect_ratio": "1152*896",
-    "default_overwrite_step": 35,
+    "default_overwrite_step": 26,
     "checkpoint_downloads": {
-        "ColorfulXL.4.safetensors": "https://civitai.com/api/download/models/525993?token=d08221c8d3ea123f5a1c047a82786f91"
+        "AramintaEXP.Cv3.safetensors": "https://civitai.com/api/download/models/525427?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
