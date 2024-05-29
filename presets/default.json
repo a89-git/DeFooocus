@@ -1,5 +1,5 @@
 {
-    "default_model": "Araminta_BV4.safetensors",
+    "default_model": "BanoboXL.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -30,13 +30,13 @@
     "default_scheduler": "normal",
     "default_performance": "Quality",
     "default_prompt": "high resolution,highest detailed:1.2, sharp focus:1.2, realistic:1.3, ultra high resolution textures:1.2.",
-    "default_prompt_negative": "unrealistic, saturated, high contrast, big nose, painting, drawing, sketch, cartoon, anime, manga, render, CG, 3d, watermark, signature, label, poorly drawn face, poorly drawn fingers, poorly drawn skin, poorly drawn nail,poorly drawn fingers,ugly, duplicate face, morbid, mutilated, out of frame, extra fingers, mutated hands, poorly drawn hands, poorly drawn face, mutation, deformed, blurry, bad anatomy, bad proportions, extra limbs, cloned face, disfigured, out of frame, ugly, extra limbs, (bad anatomy), gross proportions, malformed limbs, missing arms, missing legs, extra arms, extra legs, mutated hands, fused fingers, too many fingers, long neck, cloned fingers",
+    "default_prompt_negative": "",
     "default_styles": [
     ],
     "default_aspect_ratio": "1152*896",
-    "default_overwrite_step": 28,
+    "default_overwrite_step": 36,
     "checkpoint_downloads": {
-        "Araminta_BV4.safetensors": "https://civitai.com/api/download/models/536013?token=d08221c8d3ea123f5a1c047a82786f91"
+        "BanoboXL.safetensors": "https://civitai.com/api/download/models/361788?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
