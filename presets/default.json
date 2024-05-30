@@ -1,5 +1,5 @@
 {
-    "default_model": "WildcardFantasy.safetensors",
+    "default_model": "PixelAlchemy.1.6.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -34,9 +34,9 @@
     "default_styles": [
     ],
     "default_aspect_ratio": "1152*896",
-    "default_overwrite_step": 36,
+    "default_overwrite_step": 40,
     "checkpoint_downloads": {
-         "WildcardFantasy.safetensors": "https://civitai.com/api/download/models/522165?token=d08221c8d3ea123f5a1c047a82786f91"
+         "PixelAlchemy.1.6.safetensors": "https://civitai.com/api/download/models/536516?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
