@@ -1,5 +1,5 @@
 {
-    "default_model": "COlorfulXL4.2.safetensors",
+    "default_model": "Real_dream_classic.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 35,
     "checkpoint_downloads": {
-         "COlorfulXL4.2.safetensors": "https://civitai.com/api/download/models/536723?token=d08221c8d3ea123f5a1c047a82786f91"
+         "Real_dream_classic.safetensors": "https://civitai.com/api/download/models/539541?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
