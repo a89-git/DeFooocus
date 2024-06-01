@@ -1,5 +1,5 @@
 {
-    "default_model": "MarmosetXL.safetensors",
+    "default_model": "MobiusXL.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -34,9 +34,9 @@
     "default_styles": [
     ],
     "default_aspect_ratio": "1152*896",
-    "default_overwrite_step": 42,
+    "default_overwrite_step": 50,
     "checkpoint_downloads": {
-         "MarmosetXL.safetensors": "https://civitai.com/api/download/models/304712?token=d08221c8d3ea123f5a1c047a82786f91"
+         "MobiusXL.safetensors": "https://civitai.com/api/download/models/542444?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
