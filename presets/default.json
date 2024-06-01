@@ -1,5 +1,5 @@
 {
-    "default_model": "PixelWave.10.safetensors",
+    "default_model": "ProtoxXL.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -34,9 +34,9 @@
     "default_styles": [
     ],
     "default_aspect_ratio": "1152*896",
-    "default_overwrite_step": 20,
+    "default_overwrite_step": 40,
     "checkpoint_downloads": {
-         "PixelWave.10.safetensors": "https://civitai.com/api/download/models/542574?token=d08221c8d3ea123f5a1c047a82786f91"
+         "ProtoxXL.safetensors": "https://civitai.com/api/download/models/541287?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
