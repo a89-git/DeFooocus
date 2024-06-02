@@ -1,5 +1,5 @@
 {
-    "default_model": "MarmosetXL.safetensors",
+    "default_model": "XOTOX_NASSE_turbo.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -34,9 +34,9 @@
     "default_styles": [
     ],
     "default_aspect_ratio": "1152*896",
-    "default_overwrite_step": 40,
+    "default_overwrite_step": 6,
     "checkpoint_downloads": {
-         "MarmosetXL.safetensors": "https://huggingface.co/muciz/iseng/resolve/main/marmosetXL_v2.safetensors?download=true"
+         "XOTOX_NASSE_turbo.safetensors": "https://civitai.com/api/download/models/543904?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
