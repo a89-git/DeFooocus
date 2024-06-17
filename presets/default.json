@@ -1,5 +1,5 @@
 {
-    "default_model": "Gonzales_Wetdream_XL.safetensors",
+    "default_model": "Zaxious_wildChild.2.0_XL.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
