@@ -1,5 +1,5 @@
 {
-    "default_model": "RealDream_pony_lighting.2.0_XL..safetensors",
+    "default_model": "RealDream_pony_lighting.2.0_XL.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
