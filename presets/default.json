@@ -1,5 +1,5 @@
 {
-    "default_model": "Demoncore_XL.safetensors",
+    "default_model": "ZavyChroma.8_XL.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -24,7 +24,7 @@
             1.0
         ]
     ],
-    "default_cfg_scale": 1.5,
+    "default_cfg_scale": 4,
     "default_sample_sharpness": 20.0,
     "default_sampler": "dpmpp_sde",
     "default_scheduler": "normal",
@@ -34,9 +34,9 @@
     "default_styles": [
     ],
     "default_aspect_ratio": "1152*896",
-    "default_overwrite_step": 16,
+    "default_overwrite_step": 40,
     "checkpoint_downloads": {
-         "Demoncore_XL.safetensors": "https://civitai.com/api/download/models/576344?token=d08221c8d3ea123f5a1c047a82786f91"
+         "ZavyChroma.8_XL.safetensors": "https://civitai.com/api/download/models/563988?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
