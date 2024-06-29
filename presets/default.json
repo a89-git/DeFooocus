@@ -1,5 +1,5 @@
 {
-    "default_model": "ICBINP_XL.safetensors",
+    "default_model": "GonzalezV16_XL.safetensors",
     "default_refiner": "None",
     "default_refiner_switch": 0.5,
     "default_loras": [
@@ -24,7 +24,7 @@
             1.0
         ]
     ],
-    "default_cfg_scale": 3.7,
+    "default_cfg_scale": 3,
     "default_sample_sharpness": 20.0,
     "default_sampler": "dpmpp_sde",
     "default_scheduler": "karras",
@@ -36,7 +36,7 @@
     "default_aspect_ratio": "1152*896",
     "default_overwrite_step": 30,
     "checkpoint_downloads": {
-         "ICBINP_XL.safetensors": "https://civitai.com/api/download/models/551129?token=d08221c8d3ea123f5a1c047a82786f91"
+         "GonzalezV16_XL.safetensors": "https://civitai.com/api/download/models/602603?token=d08221c8d3ea123f5a1c047a82786f91"
     },
     "embeddings_downloads": {},
     "lora_downloads": {
